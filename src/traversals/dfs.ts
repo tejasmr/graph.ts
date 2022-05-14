@@ -5,11 +5,11 @@ export function dfs(graph: Graph, visited: boolean[], node: number) {
         return [];
     if(visited[node])
         return undefined;
-    const trav = []
+    const trav = [node]
     graph.adjecencyList[node].forEach((neighbour) => {
         const res = dfs(graph, visited, neighbour);
         if(res !== undefined)
-            trav.push(res);
+            res.forEach((val) => trav.push(val));
     });
     return trav;
 }
