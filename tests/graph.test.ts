@@ -37,7 +37,7 @@ describe('testing creation of single node graph with self loop', () => {
     test('node count should be 1', () => {
         expect(graph.nodeCount).toBe(1);
     });
-    test('edge list should be empty', () => {
+    test('edge list should have {u: 0, v: 0, w: 1}', () => {
         expect(graph.edgeList).toEqual([{u: 0, v: 0, w: 1}]);
     });
     test('adjecency list have one element which is [0]', () => {
@@ -61,5 +61,24 @@ describe('testing creation of two node graph with no edges', () => {
     });
     test('adjecency matrix should have two elements which are [0, 0]', () => {
         expect(graph.adjecencyMatrix).toEqual([[0, 0], [0, 0]]);
+    });
+});
+
+describe('testing creation of two node graph with one edge', () => {
+    const graph = new Graph(2, [{u: 0, v: 1, w: 1}]);
+    test('node count should be 2', () => {
+        expect(graph.nodeCount).toBe(2);
+    });
+    test('edge list should have {u: 0, v: 1, w: 1}', () => {
+        expect(graph.edgeList).toEqual([{u: 0, v: 1, w: 1}]);
+        expect(graph.edgeList.length).toEqual(1);
+    });
+    test('adjecency list should be [[1], []]', () => {
+        expect(graph.edgeList.length).toEqual(1);
+        expect(graph.adjecencyList).toEqual([[1], []]);
+    });
+    test('adjecency matrix should be [[0, 1], [0, 0]]', () => {
+        expect(graph.edgeList.length).toEqual(1);
+        expect(graph.adjecencyMatrix).toEqual([[0, 1], [0, 0]]);
     });
 });
