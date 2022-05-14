@@ -5,6 +5,7 @@ export function dfs(graph: Graph, visited: boolean[], node: number) {
         return [];
     if(visited[node])
         return undefined;
+    visited[node] = true;
     const trav = [node]
     graph.adjecencyList[node].forEach((neighbour) => {
         const res = dfs(graph, visited, neighbour);
