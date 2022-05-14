@@ -7,3 +7,10 @@ describe('testing empty graph', () => {
         expect(dfs(graph, Array(0).fill(false), 0)).toEqual([]);
     });
 });
+
+describe('testing single node graph with no edges', () => {
+    const graph = new Graph(1, []);
+    test('dfs should be [0]', () => {
+        expect(dfs(graph, Array(1).fill(false), 0)).toEqual([0]);
+    });
+});
