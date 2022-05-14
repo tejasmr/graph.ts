@@ -58,6 +58,7 @@ export function dfs(graph: Graph, visited: boolean[], node: number) {
         return [];
     if(visited[node])
         return undefined;
+    visited[node] = true;
     const trav = [node]
     graph.adjecencyList[node].forEach((neighbour) => {
         const res = dfs(graph, visited, neighbour);
@@ -220,6 +221,13 @@ describe('testing empty graph', () => {
 
 describe('testing single node graph with no edges', () => {
     const graph = new Graph(1, []);
+    test('dfs should be [0]', () => {
+        expect(dfs(graph, Array(1).fill(false), 0)).toEqual([0]);
+    });
+});
+
+describe('testing single node graph with self loop', () => {
+    const graph = new Graph(1, [{u: 0, v: 0, w: 1}]);
     test('dfs should be [0]', () => {
         expect(dfs(graph, Array(1).fill(false), 0)).toEqual([0]);
     });
