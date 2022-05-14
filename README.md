@@ -169,6 +169,21 @@ describe('testing creation of two node graph with three edges', () => {
     });
 });
 
+describe('testing creation of two node graph with four edges', () => {
+    const graph = new Graph(2, [{u: 0, v: 0, w: 1}, {u: 0, v: 1, w: 1}, {u: 1, v: 0, w: 1}, {u: 1, v: 1, w: 1}]);
+    test('node count should be 2', () => {
+        expect(graph.nodeCount).toBe(2);
+    });
+    test('edge list should have {u: 0, v: 1, w: 1}, {u: 0, v: 1, w: 1}, {u: 1, v: 0, w: 1}, {u: 1, v: 1, w: 1}', () => {
+        expect(graph.edgeList).toEqual([{u: 0, v: 0, w: 1}, {u: 0, v: 1, w: 1}, {u: 1, v: 0, w: 1}, {u: 1, v: 1, w: 1}]);
+    });
+    test('adjecency list should be [[0, 1], [0]]', () => {
+        expect(graph.adjecencyList).toEqual([[0, 1], [0, 1]]);
+    });
+    test('adjecency matrix should be [[1, 1], [1, 0]]', () => {
+        expect(graph.adjecencyMatrix).toEqual([[1, 1], [1, 1]]);
+    });
+});
 
 ```
 
