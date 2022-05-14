@@ -10,7 +10,7 @@ jobs:
       with:
         file: "MAIN.md"
         with_title: "true"
-        n_hashes: "2"
+        n_hashes: "3"
     - name: Setup Username and email
       run: |
         git config user.name github-actions
