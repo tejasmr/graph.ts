@@ -232,5 +232,15 @@ describe('testing single node graph with self loop', () => {
         expect(dfs(graph, Array(1).fill(false), 0)).toEqual([0]);
     });
 });
+
+describe('testing two node graph with no edges', () => {
+    const graph = new Graph(2, []);
+    test('dfs starting from 0 should be [0]', () => {
+        expect(dfs(graph, Array(2).fill(false), 0)).toEqual([0]);
+    });
+    test('dfs starting from 1 should be [1]', () => {
+        expect(dfs(graph, Array(2).fill(false), 1)).toEqual([1]);
+    });
+});
 ```
 
