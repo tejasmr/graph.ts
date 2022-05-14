@@ -1,5 +1,5 @@
 # Graph
-## Edge
+### Edge
 ```ts
 export default interface Edge {
     u: number;
@@ -9,7 +9,7 @@ export default interface Edge {
 
 ```
 
-## Graph
+### Graph
 ```ts
 import Edge from './edge';
 
@@ -47,7 +47,7 @@ export default Graph;
 
 
 ## Tests
-## Graph Test
+### Graph Test
 ```ts
 import Graph from '../src/graph';
 
