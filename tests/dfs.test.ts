@@ -14,3 +14,10 @@ describe('testing single node graph with no edges', () => {
         expect(dfs(graph, Array(1).fill(false), 0)).toEqual([0]);
     });
 });
+
+describe('testing single node graph with self loop', () => {
+    const graph = new Graph(1, [{u: 0, v: 0, w: 1}]);
+    test('dfs should be [0]', () => {
+        expect(dfs(graph, Array(1).fill(false), 0)).toEqual([0]);
+    });
+});
