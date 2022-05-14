@@ -58,11 +58,11 @@ export function dfs(graph: Graph, visited: boolean[], node: number) {
         return [];
     if(visited[node])
         return undefined;
-    const trav = []
+    const trav = [node]
     graph.adjecencyList[node].forEach((neighbour) => {
         const res = dfs(graph, visited, neighbour);
         if(res !== undefined)
-            trav.push(res);
+            res.forEach((val) => trav.push(val));
     });
     return trav;
 }
@@ -204,5 +204,25 @@ describe('testing creation of two node graph with four edges', () => {
     });
 });
 
+```
+
+### Graph Test
+```ts
+import Graph from "../src/graph";
+import { dfs } from "../src/traversals/dfs";
+
+describe('testing empty graph', () => {
+    const graph = new Graph(0, []);
+    test('dfs should be empty', () => {
+        expect(dfs(graph, Array(0).fill(false), 0)).toEqual([]);
+    });
+});
+
+describe('testing single node graph with no edges', () => {
+    const graph = new Graph(1, []);
+    test('dfs should be [0]', () => {
+        expect(dfs(graph, Array(1).fill(false), 0)).toEqual([0]);
+    });
+});
 ```
 
