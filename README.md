@@ -49,7 +49,7 @@ class Graph {
 export default Graph;
 ```
 
-### Graph
+### DFS
 ```ts
 import Graph from "../graph";
 
@@ -206,7 +206,7 @@ describe('testing creation of two node graph with four edges', () => {
 
 ```
 
-### Graph Test
+### DFS Test
 ```ts
 import Graph from "../src/graph";
 import { dfs } from "../src/traversals/dfs";
