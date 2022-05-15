@@ -15,3 +15,5 @@ gen => [BFS](src/traversals/bfs.ts)
 gen => [Graph Test](tests/graph.test.ts)
 
 gen => [DFS Test](tests/dfs.test.ts)
+
+gen => [BFS Test](tests/bfs.test.ts)
