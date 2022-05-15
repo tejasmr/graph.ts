@@ -31,6 +31,22 @@ class Graph {
         });
         return mat;
     }
+
+    get indegree(): number[] {
+        const indegree: number[] = Array(this.nodeCount).fill(0);
+        this.edgeList.forEach((edge) => {
+            indegree[edge[0]]++;
+        });
+        return indegree;
+    }
+
+    get outdegree(): number[] {
+        const outdegree: number[] = Array(this.nodeCount).fill(0);
+        this.edgeList.forEach((edge) => {
+            outdegree[edge[1]]++;
+        });
+        return outdegree;
+    }
 }
 
 export default Graph;
