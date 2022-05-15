@@ -1,4 +1,7 @@
 # Graph
+
+Graph library for typescript with jest unit testing.
+
 ### Edge
 ```ts
 export default interface Edge {
