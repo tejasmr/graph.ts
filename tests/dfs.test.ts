@@ -1,5 +1,5 @@
 import Graph from "../src/graph";
-import { dfs } from "../src/traversals/dfs";
+import dfs from "../src/traversals/dfs";
 
 describe('testing empty graph', () => {
     const graph = new Graph(0, []);
