@@ -117,6 +117,66 @@ export default function bfs(graph: Graph, startNode: number): number[] {
 ```
 
 
+## Topological Sort
+### Toposort using DFS
+```ts
+import Graph from "../graph";
+
+function _dfs(graph: Graph, startNode: number, visited: boolean[], stack: number[]) {
+    visited[startNode] = true;
+
+    graph.adjecencyList[startNode].forEach((neighbour) => {
+        if(!visited[neighbour])
+            _dfs(graph, neighbour, visited, stack);
+    });
+
+    stack.push(startNode);
+}
+
+export default function dfs(graph: Graph) {
+    if(graph.nodeCount === 0)
+        return [];
+    const visited: boolean[] = Array(graph.nodeCount).fill(false);
+    const stack: number[] = []
+
+    for(let i=0; i<graph.nodeCount; i++)
+        if(!visited[i])
+            _dfs(graph, i, visited, stack);
+    
+    return stack.reverse();
+}
+```
+
+### Toposort using BFS
+```ts
+import Graph from "../graph";
+
+export default function bfs(graph: Graph) {
+    if(graph.nodeCount === 0)
+        return [];
+    const q: number[] = [];
+    const indegree = graph.indegree;
+    const visited = Array(graph.nodeCount).fill(false);
+    const toposort = [];
+    indegree.forEach((val, index) => {
+        if(val === 0)
+            q.push(index);
+    });
+    while(q.length > 0) {
+        const node = q.shift();
+        visited[node] = true;
+        toposort.push(node);
+        graph.adjecencyList[node].forEach((neighbour) => {
+            indegree[neighbour]--;
+            if(indegree[neighbour] === 0)
+                q.push(neighbour);
+        });
+    }
+    return toposort;
+}
+```
+
+
 ## Tests
 ### Graph Test
 ```ts
@@ -409,6 +469,101 @@ describe('testing four node graph with six edges', () => {
     });
     test('dfs starting from 3 should be [3]', () => {
         expect(bfs(graph, 3)).toEqual([3]);
+    });
+});
+```
+
+### Toposort.DFS Test
+```ts
+import Graph from "../src/graph";
+import dfs from "../src/toposort/dfs";
+
+describe('testing empty graph', () => {
+    const graph = new Graph(0, []);
+    test('toposort dfs should be empty', () => {
+        expect(dfs(graph)).toEqual([]);
+    });
+});
+
+describe('testing single node graph with no edges', () => {
+    const graph = new Graph(1, []);
+    test('toposort dfs should be [0]', () => {
+        expect(dfs(graph)).toEqual([0]);
+    });
+});
+
+describe('testing two node graph with no edges', () => {
+    const graph = new Graph(2, []);
+    test('toposort dfs should be [1, 0]', () => {
+        expect(dfs(graph)).toEqual([1, 0]);
+    });
+});
+
+describe('testing two node graph with one edge', () => {
+    const graph = new Graph(2, [{u: 0, v: 1, w: 1}]);
+    test('toposort dfs should be [0, 1]', () => {
+        expect(dfs(graph)).toEqual([0, 1]);
+    });
+});
+
+describe('testing four node graph with five edges', () => {
+    const graph = new Graph(4, [
+        {u: 0, v: 1, w: 1},
+        {u: 0, v: 2, w: 1},
+        {u: 1, v: 2, w: 1},
+        {u: 2, v: 3, w: 1},
+        {u: 3, v: 3, w: 1},
+    ]);
+    test('toposort dfs should be [0, 1, 2, 3]', () => {
+        expect(dfs(graph)).toEqual([0, 1, 2, 3]);
+    });
+});
+```
+
+### Toposort.BFS Test
+```ts
+import Graph from "../src/graph";
+import bfs from "../src/toposort/bfs";
+
+describe('testing empty graph', () => {
+    const graph = new Graph(0, []);
+    test('toposort bfs should be empty', () => {
+        expect(bfs(graph)).toEqual([]);
+    });
+});
+
+describe('testing single node graph with no edges', () => {
+    const graph = new Graph(1, []);
+    test('toposort bfs should be [0]', () => {
+        expect(bfs(graph)).toEqual([0]);
+    });
+});
+
+describe('testing two node graph with no edges', () => {
+    const graph = new Graph(2, []);
+    test('toposort bfs should be [0, 1]', () => {
+        expect(bfs(graph)).toEqual([0, 1]);
+    });
+});
+
+describe('testing two node graph with one edge', () => {
+    const graph = new Graph(2, [{u: 0, v: 1, w: 1}]);
+    test('toposort bfs should be [0, 1]', () => {
+        expect(bfs(graph)).toEqual([0, 1]);
+    });
+});
+
+describe('testing four node graph with six edges', () => {
+    const graph = new Graph(4, [
+        {u: 0, v: 1, w: 1},
+        {u: 0, v: 2, w: 1},
+        {u: 1, v: 2, w: 1},
+        {u: 2, v: 0, w: 1},
+        {u: 2, v: 3, w: 1},
+        {u: 3, v: 3, w: 1},
+    ]);
+    test('toposort bfs should be [0, 1, 2, 3]', () => {
+        expect(bfs(graph)).toEqual([0, 1, 2, 3]);
     });
 });
 ```
