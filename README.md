@@ -49,11 +49,13 @@ class Graph {
 export default Graph;
 ```
 
+
+## Traversals
 ### DFS
 ```ts
 import Graph from "../graph";
 
-export function dfs(graph: Graph, visited: boolean[], node: number) {
+export default function dfs(graph: Graph, visited: boolean[], node: number): number[] {
     if(graph.nodeCount == 0)
         return [];
     if(visited[node])
@@ -69,6 +71,31 @@ export function dfs(graph: Graph, visited: boolean[], node: number) {
 }
 ```
 
+### BFS
+```ts
+import Graph from "../graph";
+
+export default function bfs(graph: Graph, startNode: number): number[] {
+    if(graph.nodeCount === 0)
+        return [];
+    const visited: boolean[] = Array(graph.nodeCount).fill(false);
+
+    const trav: number[] = [];
+    const q: number[] = [];
+    q.push(startNode);
+
+    while(q.length > 0) {
+        const node = q.shift();
+        visited[node] = true;
+        trav.push(node);
+        graph.adjecencyList[node].forEach((neighbour) => {
+            if(!visited[neighbour])
+                q.push(neighbour);
+        });
+    }
+    return trav;
+}
+```
 
 
 ## Tests
@@ -210,7 +237,7 @@ describe('testing creation of two node graph with four edges', () => {
 ### DFS Test
 ```ts
 import Graph from "../src/graph";
-import { dfs } from "../src/traversals/dfs";
+import dfs from "../src/traversals/dfs";
 
 describe('testing empty graph', () => {
     const graph = new Graph(0, []);
